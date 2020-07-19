@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box;
+}
 
 ul, li, a {
     width: 100%;
@@ -16,8 +19,7 @@ td {
   width: 25px;
   height: 25px;
   border: 1px solid;
-  border-color: rgb(190, 235, 214);
-  box-sizing: border-box;
+  border-color: #25c28166;
 }
 
 #grid {
@@ -34,32 +36,123 @@ td {
   background-repeat: no-repeat;
   background-position: center;
   background-size: 65%;
-  /* background-color: #fff; */
 }
 
 .target {
   background-image: url("images/target.svg");
-  /* background-color: yellow; */
   background-repeat: no-repeat;
   background-position: center;
   background-size: 65%;
-  /* background-color: #fff; */
 }
 
 
-
 .search {
-  background-color: green;
+  animation-name: searchAnimation;
+  animation-duration: 1.5s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  animation-direction: alternate;
+  animation-play-state: running;
+}
+
+.instantSearch {
+  background-color: #23cca5c4;
+  border-color: #25c28166;
+  transform: scale(1);  /* DO NOT REMOVE ESSENTIAL FOR BORDER COLOR FOR SOME REASON??*/
+}
+
+.instantPath {
+  background-color: yellow;
+  border-color: yellow;
 }
 
 .path {
   background-color: yellow;
-  border: none;
+  border-color: yellow;
+  animation-name: pathAnimation;
+  animation-duration: 1.5s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+  animation-direction: alternate;
+  animation-play-state: running;
 }
 
 .wall {
-  background-color: black;
-  border: 1px solid;
-  border-color: rgb(190, 235, 214);
-  box-sizing: border-box;
+  animation-name: wallAnimation;
+  animation-duration: .3s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  animation-direction: alternate;
+  animation-play-state: running;
+}
+
+@keyframes searchAnimation {
+  0% {
+    transform: scale(0.3);
+    /* background-color: #ff6464; */
+    /* background-color: #030859; */
+    /* background-color: #280359; */
+    background-color: #253b6e;
+    border-radius: 100%;
+  }
+
+  50% {
+    /* background-color: #ff8264; */
+    /* background-color: #6d3dbf; */
+    /* background-color: #3d41bfeb; */
+    background-color: #1f5f8b;
+  }
+
+  75% {
+    transform: scale(1.2);
+    /* background-color: #ffaa64; */
+    /* background-color: #e238f5; */
+    /* background-color: #0b7c62c4; */
+    /* background-color: #3cb3ebc4; */
+    background-color: #1891ac;
+    border-radius: 20%;
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: #23cca5c4;
+    border-color: #25c28166;
+  }
+}
+
+@keyframes pathAnimation {
+  0% {
+    transform: scale(0.5);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes wallAnimation {
+  0% {
+    transform: scale(0.3);
+    background-color: black;
+    border: none;
+  }
+
+  75% {
+    transform: scale(1.2);
+    background-color: black;
+    border: none;
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: black;
+    border: none;
+  }
 }

@@ -105,7 +105,14 @@ Grid.prototype.addEventListeners = function() {
           } else if (!grid.startDrag && !grid.targetDrag && e.target !== start && e.target !== target) {
             if (!grid.pressDown) {
               grid.pressDown = true;
-              e.target.classList.toggle("wall");
+
+
+              if(e.target.classList.contains("wall")) {
+                e.target.classList.remove("wall");
+              } else {
+                e.target.classList = ["wall"];
+              }
+              // e.target.classList.toggle("wall");
             }
           }
         }
@@ -162,7 +169,12 @@ Grid.prototype.addEventListeners = function() {
               instantBfs();
             }
           } else if (grid.pressDown && e.target !== start && e.target !== target) {
-            e.target.classList.toggle("wall");
+            // e.target.classList.toggle("wall");
+            if(e.target.classList.contains("wall")) {
+              e.target.classList.remove("wall");
+            } else {
+              e.target.classList = ["wall"];
+            }
           }
         }
       });
@@ -199,6 +211,7 @@ Grid.prototype.addEventListeners = function() {
   document.querySelector("#clearWalls").addEventListener("click", function() {
     if (!grid.algorithmOngoing) {
       grid.clearWalls();
+      // grid.algorithmUpdate = false;
     }
   });
 
@@ -268,11 +281,15 @@ Grid.prototype.clearPath = function() {
     for (let col = 0; col < grid.width; col++) {
       let curId = `${row}-${col}`;
       let curElement = document.getElementById(curId);
-      if (curElement.classList.contains("visited")) {
-        curElement.classList.remove("visited");
-        curElement.classList.remove("search");
-        curElement.classList.remove("path");
-        curElement.classList.add("unvisited");
+
+      if(curElement === start) {
+        curElement.classList = ["start"];
+      } else if(curElement === target) {
+        curElement.classList = ["target"];
+      } else if(curElement.classList.contains("wall")) {
+        curElement.classList = ["wall"];
+      } else if (curElement.classList.contains("visited")) {
+        curElement.classList = ["unvisited"];
       }
     }
   }
@@ -329,7 +346,7 @@ function instantFindPath() {
   }
 
   for (let i = path.length - 1; i >= 0; i--) {
-    document.getElementById(path[i]).classList.add("path");
+    document.getElementById(path[i]).classList.add("instantPath");
   }
 }
 
@@ -442,7 +459,7 @@ function instantBfs() {
     x = Number(x);
     y = Number(y);
 
-    parElement.classList.add("search");
+    parElement.classList.add("instantSearch");
 
     q.dequeue();
 
