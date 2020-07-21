@@ -19,7 +19,7 @@ td {
   width: 25px;
   height: 25px;
   border: 1px solid;
-  border-color: #25c28166;
+  /* border-color: #25c28166; */
 }
 
 #grid {
@@ -36,6 +36,7 @@ td {
   background-repeat: no-repeat;
   background-position: center;
   background-size: 65%;
+  border-color: #25c28166;
 }
 
 .target {
@@ -43,8 +44,12 @@ td {
   background-repeat: no-repeat;
   background-position: center;
   background-size: 65%;
+  border-color: #25c28166;
 }
 
+.unvisited, .visited {
+  border-color: #25c28166;
+}
 
 .search {
   animation-name: searchAnimation;
@@ -87,6 +92,7 @@ td {
   animation-fill-mode: forwards;
   animation-direction: alternate;
   animation-play-state: running;
+  border-color : black;
 }
 
 @keyframes searchAnimation {

@@ -19,7 +19,7 @@ class Grid {
     this.wallIdTarget = null;
     this.algorithm = null;
     this.algorithmOngoing = false;
-    this.speed = 20;
+    this.speed = 10;
     this.algorithmUpdate = false;
   }
 }
@@ -108,7 +108,7 @@ Grid.prototype.addEventListeners = function() {
 
 
               if(e.target.classList.contains("wall")) {
-                e.target.classList.remove("wall");
+                e.target.classList = ["unvisited"];
               } else {
                 e.target.classList = ["wall"];
               }
@@ -171,7 +171,7 @@ Grid.prototype.addEventListeners = function() {
           } else if (grid.pressDown && e.target !== start && e.target !== target) {
             // e.target.classList.toggle("wall");
             if(e.target.classList.contains("wall")) {
-              e.target.classList.remove("wall");
+              e.target.classList = ["unvisited"];
             } else {
               e.target.classList = ["wall"];
             }
@@ -185,13 +185,13 @@ Grid.prototype.addEventListeners = function() {
           if (grid.startDrag && e.target !== target) {
             e.target.classList.remove("start");
             if (grid.wallRestoreStart) {
-              grid.wallIdStart.classList.add("wall");
+              grid.wallIdStart.classList = ["wall"];
               grid.wallRestoreStart = false;
             }
           } else if (grid.targetDrag && e.target !== start) {
             e.target.classList.remove("target");
             if (grid.wallRestoreTarget) {
-              grid.wallIdTarget.classList.add("wall");
+              grid.wallIdTarget.classList = ["wall"];
               grid.wallRestoreTarget = false;
             }
           }
@@ -267,7 +267,9 @@ Grid.prototype.clearWalls = function() {
     for (let col = 0; col < grid.width; col++) {
       let curId = `${row}-${col}`;
       let curElement = document.getElementById(curId);
-      curElement.classList.remove("wall");
+      if(curElement.classList.contains("wall")) {
+        curElement.classList = ["unvisited"];
+      }
     }
   }
   grid.wallRestoreStart = false;
@@ -324,10 +326,10 @@ function findPath() {
     path.push(parent[path[path.length - 1]]);
   }
 
-  animatePath(path.length - 1, 40);
+  animatePath(path.length - 1);
 }
 
-function animatePath(index, speed) {
+function animatePath(index, speed = 30) {
   setTimeout(function() {
     if (index < 0) {
       grid.algorithmOngoing = false;
