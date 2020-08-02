@@ -21,27 +21,55 @@
         <!-- <li class="nav-item"><a class="navbar-brand" href="#">Pathfinder</a></li> -->
         <!-- <div class="nav-item dropdown"> -->
 
-        <li class="dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"> Algorithms </a>
+        <li class="dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">Algorithms </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="#" id="bfs">BFS</a>
             <a class="dropdown-item" href="#" id="djk">Dijkstra</a>
             <a class="dropdown-item" href="#" id="astar">A*</a>
           </div>
         </li>
-        <!-- </div> -->
+        <li class="dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">Mazes </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="#" id="recursiveDivision">Recursive Division</a>
+            <a class="dropdown-item" href="#" id="randomMaze">Random Maze</a>
+            <a class="dropdown-item" href="#" id="randomWeightMaze">Random Weight Maze</a>
+          </div>
+        </li>
+        <li class="dropdown" id="wallSetter"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">Obstruction : Wall</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="#" id="switchToWeight">Switch To Weight</a>
+          </div>
+        </li>
+        <li class="dropdown" id="weightSetter"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">Obstruction : Weight</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <!-- <a class="dropdown-item" href="#">Weight : 10</a>
+            <a class="dropdown-item" href="#">Weight : 20</a>
+            <a class="dropdown-item" href="#">Weight : 30</a> -->
+            <a class="dropdown-item" href="#" id="switchToWall">Switch To Wall</a>
+          </div>
+        </li>
+
         <li class="nav-item"><a class="nav-link" href="#" id="clearBoard">Clear Board</a></li>
         <li class="nav-item"><button class="btn navbar-btn btn-light" type="button" name="button" id="startAlgo">Start</button></li>
         <li class="nav-item"><a class="nav-link" href="#" id="clearWalls">Clear Walls</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" id="clearWeights">Clear Weights</a></li>
         <li class="nav-item"><a class="nav-link" href="#" id="clearPath">Clear Path</a></li>
+
+        <li class="dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">Animation Speed </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <input class="range-field" type="range" id="animationSpeed" name="animationSpeed" min="0" max="100" value="100">
+          </div>
+        </li>
       </ul>
     </div>
   </nav>
 
   <div id="gridSection">
+    <div id="center">
+      <table id="grid">
 
-    <table id="grid">
-
-    </table>
+      </table>
+    </div>
   </div>
 
   <script src="index.js"></script>

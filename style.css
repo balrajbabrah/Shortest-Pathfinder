@@ -2,6 +2,11 @@
   box-sizing: border-box;
 }
 
+body {
+  margin: 0;
+  padding: 0;
+}
+
 ul, li, a {
     width: 100%;
     text-align: center;
@@ -19,11 +24,19 @@ td {
   width: 25px;
   height: 25px;
   border: 1px solid;
-  /* border-color: #25c28166; */
 }
+
+
+/* td, tr {
+  background-color: white;
+} */
+
 
 #grid {
   display: inline-block;
+
+  /* border: 1vh solid;
+  background-color: black; */
 }
 
 #gridSection {
@@ -49,6 +62,33 @@ td {
 
 .unvisited, .visited {
   border-color: #25c28166;
+}
+
+.wall {
+  animation-name: wallAnimation;
+  animation-duration: .3s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  animation-direction: alternate;
+  animation-play-state: running;
+  /* border: 1px solid;
+  border-color : black; */
+}
+
+.weight {
+  background-image: url("images/weight3.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 95%;
+  border-color: #25c28166;
+  animation-name: weightAnimation;
+  animation-duration: .3s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  animation-direction: alternate;
+  animation-play-state: running;
 }
 
 .search {
@@ -82,17 +122,6 @@ td {
   animation-fill-mode: forwards;
   animation-direction: alternate;
   animation-play-state: running;
-}
-
-.wall {
-  animation-name: wallAnimation;
-  animation-duration: .3s;
-  animation-iteration-count: 1;
-  animation-timing-function: ease-out;
-  animation-fill-mode: forwards;
-  animation-direction: alternate;
-  animation-play-state: running;
-  border-color : black;
 }
 
 @keyframes searchAnimation {
@@ -159,6 +188,20 @@ td {
   100% {
     transform: scale(1);
     background-color: black;
-    border: none;
+    border: 1px solid;
+    border-color : black;
+    /* border: none; */
+  }
+}
+
+@keyframes weightAnimation {
+  0% {
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
   }
 }
