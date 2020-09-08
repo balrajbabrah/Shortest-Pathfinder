@@ -1,11 +1,3 @@
-// class Node {
-//   constructor(id, status) {
-//     this.id = id;
-//     this.status = status;
-//     this.weight = 0;
-//   }
-// }
-
 class Grid {
   constructor(height, width) {
     this.height = height;
@@ -63,13 +55,6 @@ class Queue extends Array {
     return this.length === 0;
   }
 }
-
-// class Node {
-//   constructor(value, priority) {
-//     this.value = value;
-//     this.priority = priority;
-//   }
-// }
 
 class PriorityQueue extends Array {
   // constructor() {
@@ -327,6 +312,9 @@ Grid.prototype.addEventListeners = function() {
               } else if(grid.algorithm === "djk") {
                 instantDjk();
               }
+              else if(grid.algorithm === "astar") {
+                instantAstar();
+              }
             }
           } else if (grid.targetDrag && e.target !== start) {
 
@@ -364,6 +352,9 @@ Grid.prototype.addEventListeners = function() {
                 instantBfs();
               } else if(grid.algorithm === "djk") {
                 instantDjk();
+              }
+              else if(grid.algorithm === "astar") {
+                instantAstar();
               }
             }
           } else if (grid.pressDown && e.target !== start && e.target !== target) {
@@ -996,6 +987,227 @@ function instantDjk() {
   instantSearch(0);
   // instantFindPath();
   // animateSearch(0);
+}
+
+// A*
+
+function astar() {
+
+  pq.splice(0, pq.length);
+  // pq.enqueue([start.id, 0]);
+
+  dis = []
+  parent = {};
+  toAnimate = [];
+  path = [];
+
+  let f = [];
+
+  for(let row = 0; row < grid.height; row++) {
+    let rowArray1 = [];
+    let rowArray2 = []; // IMPORTANT!!
+    for(let col = 0; col < grid.width; col++) {
+      rowArray1.push(Number.MAX_SAFE_INTEGER);
+      rowArray2.push(Number.MAX_SAFE_INTEGER);
+    }
+    dis.push(rowArray1);
+    f.push(rowArray2);
+  }
+
+  let [startX, startY] = start.id.split("-");
+  startX = parseInt(startX);
+  startY = parseInt(startY);
+
+  dis[startX][startY] = 0;
+  f[startX][startY] = hValue(startX, startY);
+
+  pq.enqueue([start.id, f[startX][startY]]);
+
+  const dir = [
+    [-1, 0],
+    [0, 1],
+    [1, 0],
+    [0, -1]
+  ];
+
+  while(!pq.empty()) {
+    let [parId, parF] = pq.top();
+    pq.dequeue();
+
+    let [x, y] = parId.split("-");
+    x = parseInt(x);
+    y = parseInt(y);
+
+    if(parF > f[x][y]) {
+      continue;
+    }
+
+    let parElement = document.getElementById(parId);
+    toAnimate.push(parElement);
+
+    for (let i = 0; i < 4; i++) {
+
+      let dx = x + dir[i][0];
+      let dy = y + dir[i][1];
+
+      if (dx < 0 || dy < 0 || dx == grid.height || dy == grid.width) {
+        continue;
+      }
+      curId = `${dx}-${dy}`;
+      curElement = document.getElementById(curId);
+
+      if (curElement.classList.contains("wall")) {
+        continue;
+      }
+
+      let cost = 1;
+
+      if(curElement.classList.contains("weight")) {
+        cost = 10;
+      }
+
+      let newDis = dis[x][y] + cost;
+      let newF = newDis + hValue(dx, dy);
+
+      if(f[dx][dy] > newF) {
+        dis[dx][dy] = newDis;
+        f[dx][dy] = newF;
+
+        parent[curId] = parId;
+
+        pq.enqueue([curId, newF]);
+      }
+
+      curElement.classList.remove("unvisited");
+      curElement.classList.add("visited");
+
+    }
+
+  }
+
+  function hValue(x, y) {
+
+    let [targetX, targetY] = target.id.split("-");
+    targetX = parseInt(targetX);
+    targetY = parseInt(targetY);
+
+    return Math.abs(x - targetX) + Math.abs(y - targetY);
+  }
+
+  path.push(target.id);
+  animateSearch(0);
+
+}
+
+function instantAstar() {
+
+  console.log("Here");
+
+  grid.clearPath();
+
+  pq.splice(0, pq.length);
+  // pq.enqueue([start.id, 0]);
+
+  dis = []
+  parent = {};
+  toAnimate = [];
+  path = [];
+
+  let f = [];
+
+  for(let row = 0; row < grid.height; row++) {
+    let rowArray1 = [];
+    let rowArray2 = []; // IMPORTANT!!
+    for(let col = 0; col < grid.width; col++) {
+      rowArray1.push(Number.MAX_SAFE_INTEGER);
+      rowArray2.push(Number.MAX_SAFE_INTEGER);
+    }
+    dis.push(rowArray1);
+    f.push(rowArray2);
+  }
+
+  let [startX, startY] = start.id.split("-");
+  startX = parseInt(startX);
+  startY = parseInt(startY);
+
+  dis[startX][startY] = 0;
+  f[startX][startY] = hValue(startX, startY);
+
+  pq.enqueue([start.id, f[startX][startY]]);
+
+  const dir = [
+    [-1, 0],
+    [0, 1],
+    [1, 0],
+    [0, -1]
+  ];
+
+  while(!pq.empty()) {
+    let [parId, parF] = pq.top();
+    pq.dequeue();
+
+    let [x, y] = parId.split("-");
+    x = parseInt(x);
+    y = parseInt(y);
+
+    if(parF > f[x][y]) {
+      continue;
+    }
+
+    let parElement = document.getElementById(parId);
+    toAnimate.push(parElement);
+
+    for (let i = 0; i < 4; i++) {
+
+      let dx = x + dir[i][0];
+      let dy = y + dir[i][1];
+
+      if (dx < 0 || dy < 0 || dx == grid.height || dy == grid.width) {
+        continue;
+      }
+      curId = `${dx}-${dy}`;
+      curElement = document.getElementById(curId);
+
+      if (curElement.classList.contains("wall")) {
+        continue;
+      }
+
+      let cost = 1;
+
+      if(curElement.classList.contains("weight")) {
+        cost = 10;
+      }
+
+      let newDis = dis[x][y] + cost;
+      let newF = newDis + hValue(dx, dy);
+
+      if(f[dx][dy] > newF) {
+        dis[dx][dy] = newDis;
+        f[dx][dy] = newF;
+
+        parent[curId] = parId;
+
+        pq.enqueue([curId, newF]);
+      }
+
+      curElement.classList.remove("unvisited");
+      curElement.classList.add("visited");
+
+    }
+
+  }
+
+  function hValue(x, y) {
+
+    let [targetX, targetY] = target.id.split("-");
+    targetX = parseInt(targetX);
+    targetY = parseInt(targetY);
+
+    return Math.abs(x - targetX) + Math.abs(y - targetY);
+  }
+
+  path.push(target.id);
+  instantSearch(0);
 }
 
 // Mazes
